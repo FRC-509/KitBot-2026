@@ -8,15 +8,21 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+
+import frc.robot.Constants.IDs;
 import frc.robot.Constants.OperatorConstants;
 
 
 public class Intake extends SubsystemBase {
-  private final TalonFX rotationalMotor = new TalonFX(0);
+  private final TalonFX rotationalMotor = new TalonFX(IDs.kIntakeMotor);
   private final VoltageOut openLoop = new VoltageOut(0).withEnableFOC(false);
-   
   
-  public Intake() {}
+  public enum IntakeStates {
+    //TODO: add states here
+  }
+  public Intake(IntakeStates initialState) {
+
+  }
 
   // outakeFuel controls the velocity of the fuel when shot
   public void outakeFuel(){
@@ -38,7 +44,9 @@ public class Intake extends SubsystemBase {
     // Query some boolean state, such as a digital sensor.
     return false;
   }
-
+  public void end() {
+    rotationalMotor.setControl(openLoop.withOutput(0))
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
