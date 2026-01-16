@@ -15,13 +15,16 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
-    public static final double koutakeFuelVelocity = -0.2;
-    public static final double kintakeFuelVelocity = 0.2;
-    public static final double kshooterFuelVelocity = 0.5;
   }
 
   public static class DriveConstants {
     public static final double kMaxDriveVelocity = 1;
     public static final double kMinDriveVelocity = -1;
+  }
+
+  public static class MechanismVelocityConstants {
+    public static final double koutakeFuelVelocity = -0.2;
+    public static final double kintakeFuelVelocity = 0.2;
+    public static final double kshooterFuelVelocity = 0.5;
   }
 }

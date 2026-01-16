@@ -21,8 +21,7 @@ public class DifferentialDrive extends SubsystemBase {
   
 public final VelocityDutyCycle closedloop = new VelocityDutyCycle(0).withEnableFOC(false);
 
-  public DifferentialDrive() {
-  }
+  public DifferentialDrive() {}
    
   // leftDrive controls the speed of the left side of the tank bot
  private void leftDrive(double speed){
@@ -61,6 +60,10 @@ public final VelocityDutyCycle closedloop = new VelocityDutyCycle(0).withEnableF
   double rightSpeed = forward - right;
   leftDrive(leftSpeed);
   rightDrive(rightSpeed);
+}
+public void end(){
+  rightDrive(0);
+  leftDrive(0);
 }
 /*
   @Override

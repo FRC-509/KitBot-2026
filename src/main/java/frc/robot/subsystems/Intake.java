@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
-import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.MechanismVelocityConstants;
 
 
 public class Intake extends SubsystemBase {
@@ -20,12 +20,12 @@ public class Intake extends SubsystemBase {
 
   // outakeFuel controls the velocity of the fuel when shot
   public void outakeFuel(){
-      rotationalMotor.setControl(openLoop.withOutput(OperatorConstants.koutakeFuelVelocity));
+      rotationalMotor.setControl(openLoop.withOutput(MechanismVelocityConstants.koutakeFuelVelocity));
       SmartDashboard.putBoolean(getName(), true);
   }
   // intakeFuel controls the velocity of the fuel when sucked up
   public void intakeFuel(){
-    rotationalMotor.setControl(openLoop.withOutput(OperatorConstants.kintakeFuelVelocity));
+    rotationalMotor.setControl(openLoop.withOutput(MechanismVelocityConstants.kintakeFuelVelocity));
     SmartDashboard.putBoolean(getName(), true);
   }
 

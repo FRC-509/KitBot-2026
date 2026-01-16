@@ -6,7 +6,7 @@ package frc.robot.subsystems;
 
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.MechanismVelocityConstants;
 
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -20,7 +20,7 @@ public class Shooter extends SubsystemBase {
 
   // shoots fuel that the robot sucks up
   public void shootFuel(){
-    shooterMotor.setControl(openLoop.withOutput(OperatorConstants.kshooterFuelVelocity));
+    shooterMotor.setControl(openLoop.withOutput(MechanismVelocityConstants.kshooterFuelVelocity));
   }
 
   /**

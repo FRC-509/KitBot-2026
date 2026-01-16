@@ -7,10 +7,15 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.Commands;
+import frc.robot.commands.DriveCommand;
+import frc.robot.subsystems.DifferentialDrive;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Subsystems;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -20,14 +25,19 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final Subsystems m_exampleSubsystem = new Subsystems();
-
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
-
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
+  private DifferentialDrive diffDrive = new DifferentialDrive();
+  private Intake intake;
+  private Shooter shooter;
+    
+    
+  
+    // Replace with CommandPS4Controller or CommandJoystick if needed
+    private final CommandXboxController m_driverController =
+        new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  
+    /** The container for the robot. Contains subsystems, OI devices, and commands. */
+    public RobotContainer(DifferentialDrive diffDrive) {
+      this.diffDrive = diffDrive;
     // Configure the trigger bindings
     configureBindings();
   }
@@ -43,12 +53,30 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new Commands(m_exampleSubsystem));
+    
+    //new Trigger(m_exampleSubsystem::exampleCondition)
+      //  .onTrue(new Commands(m_exampleSubsystem));
+    
+    diffDrive.setDefaultCommand(new DriveCommand(
+      diffDrive, 
+      () -> m_driverController.getLeftY(),
+      () -> m_driverController.getLeftX()
+    ));
+    
+    //hypothetically works when left bumper of joystick clicked. need to repeat but for onFalse
+    m_driverController.leftBumper().onTrue(Commands.runOnce(new IntakeCommand(intake, executeIntake())));
+    m_driverController.leftBumper().onFalse(Commands.runOnce(new IntakeCommand(intake, isFinished())));
+
+    m_driverController.leftTrigger().ontrue(Commands.runOnce(new IntakeCommand(intake, executeOutake())));
+    m_driverController.leftTrigger().onFalse(Commands.runOnce(new IntakeCommand(intake, isFinished())));
+
+    m_driverController.rightBumper().ontrue(Commands.runOnce(new ShooterCommand(shooter, execute())));
+    m_driverController.rightBumper().onFalse(Commands.runOnce(new ShooterCommand(shooter, isFinished())));
+
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
 
   /**
