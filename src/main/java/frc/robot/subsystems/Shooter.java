@@ -4,34 +4,23 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.Command;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.OperatorConstants;
+
 import com.ctre.phoenix6.controls.VoltageOut;
-import edu.wpi.first.wpilibj.motorcontrol.PWMTalonFX;
+import com.ctre.phoenix6.hardware.TalonFX;
 
 
 public class Shooter extends SubsystemBase {
-  private final PWMTalonFX shooterMotor = new TalonFX(0);
+  private final TalonFX shooterMotor = new TalonFX(0);
   private final VoltageOut openLoop = new VoltageOut(0).withEnableFOC(false);
   /** Creates a new ExampleSubsystem. */
   public Shooter() {}
 
   // shoots fuel that the robot sucks up
   public void shootFuel(){
-    shooterMotor.setControl(openLoop.withOutput(kshooterFuelVelocity));
-  }
-  /**
-   * Example command factory method.
-   *
-   * @return a command
-   */
-  public Command exampleMethodCommand() {
-    // Inline construction of command goes here.
-    // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return runOnce(
-        () -> {
-          /* one-time action goes here */
-        });
+    shooterMotor.setControl(openLoop.withOutput(OperatorConstants.kshooterFuelVelocity));
   }
 
   /**

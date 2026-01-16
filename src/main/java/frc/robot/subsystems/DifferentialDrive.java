@@ -21,14 +21,11 @@ public class DifferentialDrive extends SubsystemBase {
   
 public final VelocityDutyCycle closedloop = new VelocityDutyCycle(0).withEnableFOC(false);
 
-double speed;
-
   public DifferentialDrive() {
-    speed=0;
   }
    
   // leftDrive controls the speed of the left side of the tank bot
- public void leftDrive(double speed){
+ private void leftDrive(double speed){
 
   //checking for speed in range
   if(speed > DriveConstants.kMaxDriveVelocity) speed = DriveConstants.kMaxDriveVelocity;
@@ -42,7 +39,7 @@ double speed;
 //We Love mr. skibidihorn and fvelocity - Zack philopino boy.
 
 // rightDrive controls the speed of the right side of the tank bot
- public void rightDrive(double speed){
+ private void rightDrive(double speed){
 
   //checking for speed in range
   if(speed > DriveConstants.kMaxDriveVelocity) speed = DriveConstants.kMaxDriveVelocity;
@@ -55,7 +52,7 @@ double speed;
 
  /**
   * this is a helper method for the controller
-  * @param forward hi
+  * @param forward
   * @param right
   */
   //drive controls the direction the tank bot moves
