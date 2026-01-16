@@ -4,11 +4,11 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.motorcontrol.PWMTalonFX;
 import com.ctre.phoenix6.controls.VoltageOut;
+import com.ctre.phoenix6.hardware.TalonFX;
+import frc.robot.Constants.OperatorConstants;
 
 
 public class Intake extends SubsystemBase {
@@ -16,31 +16,17 @@ public class Intake extends SubsystemBase {
   private final VoltageOut openLoop = new VoltageOut(0).withEnableFOC(false);
    
   
-  /** Creates a new ExampleSubsystem. */
   public Intake() {}
 
-
+  // outakeFuel controls the velocity of the fuel when shot
   public void outakeFuel(){
-      rotationalMotor.setControl(openLoop.withOutput(koutakeFuelVelocity));
+      rotationalMotor.setControl(openLoop.withOutput(OperatorConstants.koutakeFuelVelocity));
       SmartDashboard.putBoolean(getName(), true);
   }
-
+  // intakeFuel controls the velocity of the fuel when sucked up
   public void intakeFuel(){
-    rotationalmotor.setControl(openLoop.withOutput(kintakeFuelVelocity));
+    rotationalMotor.setControl(openLoop.withOutput(OperatorConstants.kintakeFuelVelocity));
     SmartDashboard.putBoolean(getName(), true);
-  }
-  /**
-   * Example command factory method.
-   *
-   * @return a command
-   */
-  public Command exampleMethodCommand() {
-    // Inline construction of command goes here.
-    // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return runOnce(
-        () -> {
-          /* one-time action goes here */
-        });
   }
 
   /**
@@ -58,8 +44,5 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  @Override
-  public void simulationPeriodic() {
-    // This method will be called once per scheduler run during simulation
-  }
+
 }

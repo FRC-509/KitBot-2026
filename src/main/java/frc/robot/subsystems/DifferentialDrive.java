@@ -4,54 +4,53 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix6.controls.VelocityDutyCycle;
-
-import edu.wpi.first.wpilibj.motorcontrol.PWMTalonFX;
+import com.ctre.phoenix6.hardware.TalonFX;
 
 import frc.robot.Constants.DriveConstants;
 
 
 public class DifferentialDrive extends SubsystemBase {
-  public final PWMTalonFX frontLeft = new PWMTalonFX(0);
-  public final PWMTalonFX frontRight = new PWMTalonFX(0);
-  public final PWMTalonFX backLeft = new PWMTalonFX(0);
-  public final PWMTalonFX backRight = new PWMTalonFX(0);
+  public final TalonFX frontLeft = new TalonFX(0);
+  public final TalonFX frontRight = new TalonFX(0);
+  public final TalonFX backLeft = new TalonFX(0);
+  public final TalonFX backRight = new TalonFX(0);
   
 public final VelocityDutyCycle closedloop = new VelocityDutyCycle(0).withEnableFOC(false);
-  
-  /** Creates a new ExampleSubsystem. */
+
+double speed;
+
   public DifferentialDrive() {
-
-  
+    speed=0;
   }
-
-  public void getLeftSpeed(){
-
-  }
-
-  public void getRightSpeed(){
-
-  }
+   
+  // leftDrive controls the speed of the left side of the tank bot
  public void leftDrive(double speed){
+
   //checking for speed in range
-  if(speed > DriveConstants.kMaxDriveVelocity) speed = 1;
-  if(speed < DriveConstants.kMinDriveVelocity) speed = -1;
+  if(speed > DriveConstants.kMaxDriveVelocity) speed = DriveConstants.kMaxDriveVelocity;
+  if(speed < DriveConstants.kMinDriveVelocity) speed = DriveConstants.kMinDriveVelocity;
 
-  frontLeft.set(speed);
-  backLeft.set(speed);
-
+  frontLeft.setControl(closedloop.withVelocity(speed));
+  backLeft.setControl(closedloop.withVelocity(speed));
+  SmartDashboard.putNumber("Left DriveTrain Speed: ", speed);
  }
 
+//We Love mr. skibidihorn and fvelocity - Zack philopino boy.
+
+// rightDrive controls the speed of the right side of the tank bot
  public void rightDrive(double speed){
+
   //checking for speed in range
-  if(speed > 1) speed = 1;
-  if(speed < -1) speed = -1;
+  if(speed > DriveConstants.kMaxDriveVelocity) speed = DriveConstants.kMaxDriveVelocity;
+  if(speed < DriveConstants.kMinDriveVelocity) speed = DriveConstants.kMinDriveVelocity;
   
-  frontRight.set(speed);
-  backRight.set(speed);
+  frontRight.setControl(closedloop.withVelocity(speed));
+  backRight.setControl(closedloop.withVelocity(speed));
+  SmartDashboard.putNumber("Right DriveTrain Speed: ", speed);
  }
 
  /**
@@ -59,49 +58,18 @@ public final VelocityDutyCycle closedloop = new VelocityDutyCycle(0).withEnableF
   * @param forward hi
   * @param right
   */
+  //drive controls the direction the tank bot moves
  public void drive(double forward, double right){
   double leftSpeed = forward + right;
   double rightSpeed = forward - right;
   leftDrive(leftSpeed);
   rightDrive(rightSpeed);
 }
-
-
-
-
-
-
-  /**
-   * Example command factory method.
-   *
-   * @return a command
-   */
-  public Command exampleMethodCommand() {
-
-this.drive(0, 0);
-
-    // Inline construction of command goes here.
-    // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return runOnce(
-        () -> {
-          /* one-time action goes here */
-        });
-  }
-
-  /**
-   * An example method querying a boolean state of the subsystem (for example, a digital sensor).
-   *
-   * @return value of some boolean subsystem state, such as a digital sensor.
-   */
-  public boolean exampleCondition() {
-    // Query some boolean state, such as a digital sensor.
-    return false;
-  }
-
+/*
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    
   }
-
-  
+*/
 }

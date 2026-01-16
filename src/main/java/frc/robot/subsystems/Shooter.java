@@ -6,16 +6,17 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.ctre.phoenix6.controls.PositionDutyCycle;
+import com.ctre.phoenix6.controls.VoltageOut;
 import edu.wpi.first.wpilibj.motorcontrol.PWMTalonFX;
 
+
 public class Shooter extends SubsystemBase {
-  private final TalonFx shooterMotor = new TalonFx(0);
+  private final PWMTalonFX shooterMotor = new TalonFX(0);
   private final VoltageOut openLoop = new VoltageOut(0).withEnableFOC(false);
   /** Creates a new ExampleSubsystem. */
   public Shooter() {}
 
-
+  // shoots fuel that the robot sucks up
   public void shootFuel(){
     shooterMotor.setControl(openLoop.withOutput(kshooterFuelVelocity));
   }
@@ -46,10 +47,5 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-  }
-
-  @Override
-  public void simulationPeriodic() {
-    // This method will be called once per scheduler run during simulation
   }
 }
