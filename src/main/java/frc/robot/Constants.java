@@ -19,7 +19,13 @@ public final class Constants {
     public static final double kintakeFuelVelocity = 0.2;
     public static final double kshooterFuelVelocity = 0.5;
   }
-
+  public static class IDs {
+    public static final int kMotorFrontLeft = 0; //placeholder for ID
+    public static final int kFrontRight = 0; //placeholder for ID
+    public static final int kBackLeft = 0; //placeholder for ID
+    public static final int kBackRight = 0; //placeholder for ID
+    public static final int kIntakeMotor = 0; //placeholder for ID
+  }
   public static class DriveConstants {
     public static final double kMaxDriveVelocity = 1;
     public static final double kMinDriveVelocity = -1;
