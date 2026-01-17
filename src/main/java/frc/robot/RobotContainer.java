@@ -8,6 +8,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.Commands;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.ShooterCommand;
 import frc.robot.subsystems.DifferentialDrive;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -25,7 +26,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private DifferentialDrive diffDrive = new DifferentialDrive();
+  private DifferentialDrive diffDrive;
   private Intake intake;
   private Shooter shooter;
     
@@ -38,6 +39,7 @@ public class RobotContainer {
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer(DifferentialDrive diffDrive) {
       this.diffDrive = diffDrive;
+      
     // Configure the trigger bindings
     configureBindings();
   }
@@ -64,14 +66,14 @@ public class RobotContainer {
     ));
     
     //hypothetically works when left bumper of joystick clicked. need to repeat but for onFalse
-    m_driverController.leftBumper().onTrue(Commands.runOnce(new IntakeCommand(intake, executeIntake())));
-    m_driverController.leftBumper().onFalse(Commands.runOnce(new IntakeCommand(intake, isFinished())));
+    m_driverController.leftBumper().onTrue(Commands.runOnce((IntakeCommand.executeIntake())));
+    m_driverController.leftBumper().onFalse(Commands.runOnce(IntakeCommand.stopIntake()));
 
-    m_driverController.leftTrigger().ontrue(Commands.runOnce(new IntakeCommand(intake, executeOutake())));
-    m_driverController.leftTrigger().onFalse(Commands.runOnce(new IntakeCommand(intake, isFinished())));
+    m_driverController.leftTrigger().ontrue(Commands.runOnce(IntakeCommand.executeOutake()));
+    m_driverController.leftTrigger().onFalse(Commands.runOnce(IntakeCommand.stopOutake()));
 
-    m_driverController.rightBumper().ontrue(Commands.runOnce(new ShooterCommand(shooter, execute())));
-    m_driverController.rightBumper().onFalse(Commands.runOnce(new ShooterCommand(shooter, isFinished())));
+    m_driverController.rightBumper().ontrue(Commands.runOnce(ShooterCommand.execute()));
+    m_driverController.rightBumper().onFalse(Commands.runOnce(ShooterCommand.end()));
 
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
