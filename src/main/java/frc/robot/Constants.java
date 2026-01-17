@@ -18,7 +18,7 @@ public final class Constants {
   1-4 driveTrain Motors
   shooter 5
   intake 6
-  
+  encoders 7-8
   
   
   

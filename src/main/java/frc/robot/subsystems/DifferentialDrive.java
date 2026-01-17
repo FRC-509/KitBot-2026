@@ -37,8 +37,8 @@ public final VelocityDutyCycle closedloop = new VelocityDutyCycle(0).withEnableF
   //checking for speed in range
   speed = MathUtil.clamp(speed, DriveConstants.kMinDriveVelocity, DriveConstants.kMaxDriveVelocity);
   
-  frontLeft.setControl(closedloop.withVelocity(speed));
-  backLeft.setControl(closedloop.withVelocity(speed));
+  frontLeft.setControl(closedloop.withVelocity(speed * DriveConstants.kMaxDriveVoltage));
+  backLeft.setControl(closedloop.withVelocity(speed * DriveConstants.kMaxDriveVoltage));
   SmartDashboard.putNumber("Left DriveTrain Speed: ", speed);
  }
 
@@ -50,8 +50,8 @@ public final VelocityDutyCycle closedloop = new VelocityDutyCycle(0).withEnableF
   //checking for speed in range
   speed = MathUtil.clamp(speed, DriveConstants.kMinDriveVelocity, DriveConstants.kMaxDriveVelocity);
   
-  frontRight.setControl(closedloop.withVelocity(speed));
-  backRight.setControl(closedloop.withVelocity(speed));
+  frontRight.setControl(closedloop.withVelocity(speed * DriveConstants.kMaxDriveVoltage));
+  backRight.setControl(closedloop.withVelocity(speed * DriveConstants.kMaxDriveVoltage));
   SmartDashboard.putNumber("Right DriveTrain Speed: ", speed);
  }
 
