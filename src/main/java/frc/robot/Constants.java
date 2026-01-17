@@ -16,12 +16,17 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
-  public static class IDs {
+  public static class MotorIDs {
     public static final int kMotorFrontLeft = 0; //placeholder for ID
-    public static final int kFrontRight = 0; //placeholder for ID
-    public static final int kBackLeft = 0; //placeholder for ID
-    public static final int kBackRight = 0; //placeholder for ID
-    public static final int kIntakeMotor = 0; //placeholder for ID
+    public static final int kMotorFrontRight = 0; //placeholder for ID
+    public static final int kMotorBackLeft = 0; //placeholder for ID
+    public static final int kMotorBackRight = 0; //placeholder for ID
+    public static final int kMotorIntake = 0; //placeholder for ID
+  }
+  public static class EncoderIDs {
+    public static final int kEncoderLeftDriveBase = 0; //Placeholder
+    public static final int kEncoderRightDriveBase = 0; //Placeholder
+    public static final int kCANivore = 0; //placeholder
   }
   public static class DriveConstants {
     public static final double kMaxDriveVelocity = 1;

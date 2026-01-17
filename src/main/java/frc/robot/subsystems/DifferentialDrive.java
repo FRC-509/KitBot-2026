@@ -13,14 +13,16 @@ import com.ctre.phoenix6.hardware.TalonFX;
 
 import com.ctre.phoenix6.hardware.CANcoder;
 
+import frc.robot.Constants.MotorIDs;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.EncoderIDs;
 
 
 public class DifferentialDrive extends SubsystemBase {
-  public final TalonFX frontLeft = new TalonFX(DriveConstants.kMotorFrontLeft);
-  public final TalonFX frontRight = new TalonFX(DriveConstants.kMotorFrontRight);
-  public final TalonFX backLeft = new TalonFX(DriveConstants.kMotorBackLeft);
-  public final TalonFX backRight = new TalonFX(DriveConstants.kMotorBackRight);
+  public final TalonFX frontLeft = new TalonFX(MotorIDs.kMotorFrontLeft);
+  public final TalonFX frontRight = new TalonFX(MotorIDs.kMotorFrontRight);
+  public final TalonFX backLeft = new TalonFX(MotorIDs.kMotorBackLeft);
+  public final TalonFX backRight = new TalonFX(MotorIDs.kMotorBackRight);
   
   public final CANcoder leftEncoder = new CANcoder(EncoderIDs.kEncoderLeftDriveBase, EncoderIDs.kCANivore);
   public final CANcoder rightEncoder = new CANcoder(EncoderIDs.kEncoderRightDriveBase, EncoderIDs.kCANivore);

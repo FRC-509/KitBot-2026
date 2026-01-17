@@ -10,19 +10,15 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import frc.robot.Constants.MechanismVelocityConstants;
 
-import frc.robot.Constants.IDs;
+import frc.robot.Constants.MotorIDs;
 import frc.robot.Constants.OperatorConstants;
 
 
 public class Intake extends SubsystemBase {
-  private final TalonFX rotationalMotor = new TalonFX(IDs.kIntakeMotor);
+  private final TalonFX rotationalMotor = new TalonFX(MotorIDs.kMotorIntake);
   private final VoltageOut openLoop = new VoltageOut(0).withEnableFOC(false);
-  
-  public enum IntakeStates {
-    //TODO: add states here
-  }
-  public Intake(IntakeStates initialState) {
 
+  public Intake() {
   }
 
   // outakeFuel controls the velocity of the fuel when shot
@@ -46,7 +42,7 @@ public class Intake extends SubsystemBase {
   //   return false;
   // }
   public void end() {
-    rotationalMotor.setControl(openLoop.withOutput(0))
+    rotationalMotor.setControl(openLoop.withOutput(0));
   }
   @Override
   public void periodic() {
