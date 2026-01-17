@@ -19,6 +19,9 @@ public class DifferentialDrive extends SubsystemBase {
   public final TalonFX backLeft = new TalonFX(0);
   public final TalonFX backRight = new TalonFX(0);
   
+  public final CANcoder leftEncoder = new CANcoder(0, "canivore");
+  public final CANcoder rightEncoder = new CANcoder(0, "canivore");
+  
 public final VelocityDutyCycle closedloop = new VelocityDutyCycle(0).withEnableFOC(false);
 
   public DifferentialDrive() {}
