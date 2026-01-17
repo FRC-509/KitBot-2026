@@ -6,21 +6,24 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.MathUtil;
 
 import com.ctre.phoenix6.controls.VelocityDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
+
+import com.ctre.phoenix6.hardware.CANcoder;
 
 import frc.robot.Constants.DriveConstants;
 
 
 public class DifferentialDrive extends SubsystemBase {
-  public final TalonFX frontLeft = new TalonFX(0);
-  public final TalonFX frontRight = new TalonFX(0);
-  public final TalonFX backLeft = new TalonFX(0);
-  public final TalonFX backRight = new TalonFX(0);
+  public final TalonFX frontLeft = new TalonFX(DriveConstants.kMotorFrontLeft);
+  public final TalonFX frontRight = new TalonFX(DriveConstants.kMotorFrontRight);
+  public final TalonFX backLeft = new TalonFX(DriveConstants.kMotorBackLeft);
+  public final TalonFX backRight = new TalonFX(DriveConstants.kMotorBackRight);
   
-  public final CANcoder leftEncoder = new CANcoder(0, "canivore");
-  public final CANcoder rightEncoder = new CANcoder(0, "canivore");
+  public final CANcoder leftEncoder = new CANcoder(EncoderIDs.kEncoderLeftDriveBase, EncoderIDs.kCANivore);
+  public final CANcoder rightEncoder = new CANcoder(EncoderIDs.kEncoderRightDriveBase, EncoderIDs.kCANivore);
   
 public final VelocityDutyCycle closedloop = new VelocityDutyCycle(0).withEnableFOC(false);
 
@@ -29,9 +32,10 @@ public final VelocityDutyCycle closedloop = new VelocityDutyCycle(0).withEnableF
   // leftDrive controls the speed of the left side of the tank bot
  private void leftDrive(double speed){
 
+  
+
   //checking for speed in range
-  if(speed > DriveConstants.kMaxDriveVelocity) speed = DriveConstants.kMaxDriveVelocity;
-  if(speed < DriveConstants.kMinDriveVelocity) speed = DriveConstants.kMinDriveVelocity;
+  speed = MathUtil.clamp(value, min, max);
 
   frontLeft.setControl(closedloop.withVelocity(speed));
   backLeft.setControl(closedloop.withVelocity(speed));
@@ -44,8 +48,7 @@ public final VelocityDutyCycle closedloop = new VelocityDutyCycle(0).withEnableF
  private void rightDrive(double speed){
 
   //checking for speed in range
-  if(speed > DriveConstants.kMaxDriveVelocity) speed = DriveConstants.kMaxDriveVelocity;
-  if(speed < DriveConstants.kMinDriveVelocity) speed = DriveConstants.kMinDriveVelocity;
+  speed = MathUtil.clamp(value, min, max);
   
   frontRight.setControl(closedloop.withVelocity(speed));
   backRight.setControl(closedloop.withVelocity(speed));
