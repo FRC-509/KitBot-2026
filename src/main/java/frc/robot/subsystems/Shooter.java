@@ -7,13 +7,14 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MechanismVelocityConstants;
+import frc.robot.Constants.MotorIDs;
 
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 
 public class Shooter extends SubsystemBase {
-  private final TalonFX shooterMotor = new TalonFX(0);
+  private final TalonFX shooterMotor = new TalonFX(MotorIDs.kMotorShooter);
   private final VoltageOut openLoop = new VoltageOut(0).withEnableFOC(false);
   /** Creates a new ExampleSubsystem. */
   public Shooter() {}

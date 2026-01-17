@@ -22,7 +22,7 @@ public class Intake extends SubsystemBase {
   }
 
   // outakeFuel controls the velocity of the fuel when shot
-  public void outakeFuel(){
+  public void outtakeFuel(){
       rotationalMotor.setControl(openLoop.withOutput(MechanismVelocityConstants.koutakeFuelVelocity));
       SmartDashboard.putBoolean(getName(), true);
   }
@@ -41,13 +41,14 @@ public class Intake extends SubsystemBase {
   //   // Query some boolean state, such as a digital sensor.
   //   return false;
   // }
-  public void end() {
+  public void stopIntake() {
     rotationalMotor.setControl(openLoop.withOutput(0));
   }
+  /* 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-
+  */
 
 }

@@ -8,6 +8,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.Commands;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ShooterCommand;
 import frc.robot.subsystems.DifferentialDrive;
 import frc.robot.subsystems.Intake;
@@ -27,18 +28,18 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private DifferentialDrive diffDrive;
-  private Intake intake;
-  private Shooter shooter;
+  private Intake intakeSubsystem = new Intake();
+  private Shooter shooterSubsystem = new Shooter();
     
     
   
-    // Replace with CommandPS4Controller or CommandJoystick if needed
-    private final CommandXboxController m_driverController =
-        new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  // Replace with CommandPS4Controller or CommandJoystick if needed
+  private final CommandXboxController m_driverController =
+    new CommandXboxController(OperatorConstants.kDriverControllerPort);
   
-    /** The container for the robot. Contains subsystems, OI devices, and commands. */
-    public RobotContainer(DifferentialDrive diffDrive) {
-      this.diffDrive = diffDrive;
+  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  public RobotContainer(DifferentialDrive diffDrive) {
+    this.diffDrive = diffDrive;
       
     // Configure the trigger bindings
     configureBindings();
@@ -65,16 +66,17 @@ public class RobotContainer {
       () -> m_driverController.getLeftX()
     ));
     
+    //intakeSubsystem.setDefaultCommand((new IntakeCommand(intakeSubsyste)));
+
     //hypothetically works when left bumper of joystick clicked. need to repeat but for onFalse
-    m_driverController.leftBumper().onTrue(Commands.runOnce((IntakeCommand.executeIntake())));
-    m_driverController.leftBumper().onFalse(Commands.runOnce(IntakeCommand.stopIntake()));
+    m_driverController.leftBumper().onTrue(new IntakeCommand(intakeSubsystem, true, 
+        () -> m_driverController.leftBumper().getAsBoolean()));
 
-    m_driverController.leftTrigger().ontrue(Commands.runOnce(IntakeCommand.executeOutake()));
-    m_driverController.leftTrigger().onFalse(Commands.runOnce(IntakeCommand.stopOutake()));
+    m_driverController.leftTrigger().onTrue(new IntakeCommand(intakeSubsystem, false, 
+        () -> m_driverController.leftTrigger().getAsBoolean()));
 
-    m_driverController.rightBumper().ontrue(Commands.runOnce(ShooterCommand.execute()));
-    m_driverController.rightBumper().onFalse(Commands.runOnce(ShooterCommand.end()));
-
+    m_driverController.rightBumper().onTrue(new ShooterCommand(shooterSubsystem, 
+        () -> m_driverController.rightBumper().getAsBoolean(), intakeSubsystem));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
@@ -86,8 +88,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Commands getAutonomousCommand() {
+  /*public Commands getAutonomousCommand() {
     // An example command will be run in autonomous
     return Autos.exampleAuto(m_exampleSubsystem);
-  }
+  }*/
 }

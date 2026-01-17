@@ -15,7 +15,7 @@ import com.ctre.phoenix6.hardware.CANcoder;
 
 import frc.robot.Constants.MotorIDs;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.EncoderIDs;
+import frc.robot.Constants.SensorIDs;
 
 
 public class DifferentialDrive extends SubsystemBase {
@@ -24,8 +24,8 @@ public class DifferentialDrive extends SubsystemBase {
   public final TalonFX backLeft = new TalonFX(MotorIDs.kMotorBackLeft);
   public final TalonFX backRight = new TalonFX(MotorIDs.kMotorBackRight);
   
-  public final CANcoder leftEncoder = new CANcoder(EncoderIDs.kEncoderLeftDriveBase, EncoderIDs.kCANivore);
-  public final CANcoder rightEncoder = new CANcoder(EncoderIDs.kEncoderRightDriveBase, EncoderIDs.kCANivore);
+  public final CANcoder leftEncoder = new CANcoder(SensorIDs.kEncoderLeftDriveBase, SensorIDs.kCANivore);
+  public final CANcoder rightEncoder = new CANcoder(SensorIDs.kEncoderRightDriveBase, SensorIDs.kCANivore);
   
 public final VelocityDutyCycle closedloop = new VelocityDutyCycle(0).withEnableFOC(false);
 
@@ -34,11 +34,9 @@ public final VelocityDutyCycle closedloop = new VelocityDutyCycle(0).withEnableF
   // leftDrive controls the speed of the left side of the tank bot
  private void leftDrive(double speed){
 
-  
-
   //checking for speed in range
-  speed = MathUtil.clamp(value, min, max);
-
+  speed = MathUtil.clamp(speed, DriveConstants.kMinDriveVelocity, DriveConstants.kMaxDriveVelocity);
+  
   frontLeft.setControl(closedloop.withVelocity(speed));
   backLeft.setControl(closedloop.withVelocity(speed));
   SmartDashboard.putNumber("Left DriveTrain Speed: ", speed);
@@ -50,7 +48,7 @@ public final VelocityDutyCycle closedloop = new VelocityDutyCycle(0).withEnableF
  private void rightDrive(double speed){
 
   //checking for speed in range
-  speed = MathUtil.clamp(value, min, max);
+  speed = MathUtil.clamp(speed, DriveConstants.kMinDriveVelocity, DriveConstants.kMaxDriveVelocity);
   
   frontRight.setControl(closedloop.withVelocity(speed));
   backRight.setControl(closedloop.withVelocity(speed));
