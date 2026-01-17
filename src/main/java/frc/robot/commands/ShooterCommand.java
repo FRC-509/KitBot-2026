@@ -51,6 +51,7 @@ public class ShooterCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     shooter.stopShooter();
+    intake.stopIntake();
     SmartDashboard.putBoolean("Shooter Active: ", false);
   }
 }
