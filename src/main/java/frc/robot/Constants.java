@@ -24,8 +24,6 @@ public final class Constants {
   
   */
 
-
-
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
@@ -55,5 +53,25 @@ public final class Constants {
     public static final double koutakeFuelVelocity = -0.2;
     public static final double kintakeFuelVelocity = 0.2;
     public static final double kshooterFuelVelocity = 0.5;
+  }
+
+  public static class PIDConstants {
+    public static class Drive {
+      public static final double kDriveP = 0;
+      public static final double kDriveI = 0;
+      public static final double kDriveD = 0;
+    }
+
+    public static class Intake {
+      public static final double kIntakeP = 0;
+      public static final double kIntakeI = 0;
+      public static final double kIntakeD = 0;
+    }
+
+    public static class Shooter {
+      public static final double kShooterP = 0;
+      public static final double kShooterI = 0;
+      public static final double kShooterD = 0;
+    }
   }
 }

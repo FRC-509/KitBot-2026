@@ -8,14 +8,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.MathUtil;
 
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.VelocityDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
-
+import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.hardware.CANcoder;
 
 import frc.robot.Constants.MotorIDs;
+import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.SensorIDs;
+
 
 
 public class DifferentialDrive extends SubsystemBase {
@@ -29,7 +33,24 @@ public class DifferentialDrive extends SubsystemBase {
   
 public final VelocityDutyCycle closedloop = new VelocityDutyCycle(0).withEnableFOC(false);
 
-  public DifferentialDrive() {}
+  public DifferentialDrive() {
+    TalonFXConfiguration driveConfig = new TalonFXConfiguration();
+
+    //PID value assignment
+    driveConfig.Slot0.kP = Constants.PIDConstants.Drive.kDriveP;
+    driveConfig.Slot0.kI = Constants.PIDConstants.Drive.kDriveI;
+    driveConfig.Slot0.kD = Constants.PIDConstants.Drive.kDriveD;
+    driveConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+
+    // Assigning encoder as feedback device
+    driveConfig.Feedback.FeedbackRemoteSensorID = leftEncoder.getDeviceID();
+    driveConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
+    
+    frontLeft.getConfigurator().apply(driveConfig);
+    frontRight.getConfigurator().apply(driveConfig);
+    backLeft.getConfigurator().apply(driveConfig);
+    backRight.getConfigurator().apply(driveConfig);
+  }
    
   // leftDrive controls the speed of the left side of the tank bot
  private void leftDrive(double speed){

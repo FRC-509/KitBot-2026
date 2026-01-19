@@ -6,8 +6,13 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
+
+import frc.robot.Constants;
 import frc.robot.Constants.MechanismVelocityConstants;
 
 import frc.robot.Constants.MotorIDs;
@@ -19,6 +24,15 @@ public class Intake extends SubsystemBase {
   private final VoltageOut openLoop = new VoltageOut(0).withEnableFOC(false);
 
   public Intake() {
+    TalonFXConfiguration intakeConfig = new TalonFXConfiguration();
+
+    // PID value assignment
+    intakeConfig.Slot0.kP = Constants.PIDConstants.Intake.kIntakeP;
+    intakeConfig.Slot0.kI = Constants.PIDConstants.Intake.kIntakeI;
+    intakeConfig.Slot0.kD = Constants.PIDConstants.Intake.kIntakeD;
+    intakeConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    
+    rotationalMotor.getConfigurator().apply(intakeConfig);
   }
 
   // outakeFuel controls the velocity of the fuel when shot
