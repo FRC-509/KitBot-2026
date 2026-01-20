@@ -33,7 +33,12 @@ public class DifferentialDrive extends SubsystemBase {
   
 public final VelocityDutyCycle closedloop = new VelocityDutyCycle(0).withEnableFOC(false);
 
-  public DifferentialDrive() {
+private final PigeonWrapper pigeon;
+
+  public DifferentialDrive(PigeonWrapper pigeon) {
+
+    this.pigeon = pigeon;
+
     TalonFXConfiguration driveConfig = new TalonFXConfiguration();
 
     //PID value assignment
@@ -91,6 +96,13 @@ public final VelocityDutyCycle closedloop = new VelocityDutyCycle(0).withEnableF
 public void end(){
   rightDrive(0);
   leftDrive(0);
+}
+
+public Rotation2d getYaw(){
+  if (RobotBase.isSimulation){
+    return Rotation2d.fromRadians(simHeading);
+  }
+  return pigeon.getRotation2d;
 }
 /*
   @Override
