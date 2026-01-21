@@ -39,6 +39,8 @@ private final PigeonWrapper pigeon;
 
     this.pigeon = pigeon;
 
+    pigeon.getYaw();
+
     TalonFXConfiguration driveConfig = new TalonFXConfiguration();
 
     //PID value assignment
@@ -102,7 +104,15 @@ public Rotation2d getYaw(){
   if (RobotBase.isSimulation){
     return Rotation2d.fromRadians(simHeading);
   }
-  return pigeon.getRotation2d;
+  return pigeon.getRotation2d();
+}
+
+public double getHeading(){
+  return pigeon.getYaw().getAsDouble();
+}
+
+public void resetPigeon(){
+  pigeon.setYaw(0);
 }
 /*
   @Override
