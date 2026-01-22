@@ -15,19 +15,21 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class DriveCommand extends Command {
 
   DifferentialDrive subsystem;
-  double x;
-  double y;
+  DoubleSupplier stickX;
+  DoubleSupplier stickY;
 
-  public DriveCommand(DifferentialDrive subsystem, double x, double y) {
+  public DriveCommand(DifferentialDrive subsystem, DoubleSupplier stickX, DoubleSupplier stickY) {
     this.subsystem = subsystem;
-    this.x = x;
-    this.y = y;
+    this.stickX = stickX;
+    this.stickY = stickY;
   }
 
 
   @Override
   public void execute() {
 
+    double x = stickX.getAsDouble();
+    double y = stickY.getAsDouble();
     double leftSpeed = y + x;
     double rightSpeed = y - x;
 
