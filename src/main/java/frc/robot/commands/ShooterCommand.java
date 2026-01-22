@@ -4,54 +4,40 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Intake;
-
-import java.util.function.BooleanSupplier;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Subsystems;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class ShooterCommand extends Command {
+public class Commands extends Command {
   @SuppressWarnings("PMD.UnusedPrivateField")
-  private final Shooter shooter;
-  private final Intake intake;
-  private final BooleanSupplier finished;
+  private final Subsystems m_subsystem;
+
   /**
    * Creates a new ExampleCommand.
    *
-   * @param Shooter The subsystem used by this command.
+   * @param subsystem The subsystem used by this command.
    */
-  public ShooterCommand(Shooter shooter, BooleanSupplier finished, Intake intake) {
-    this.shooter = shooter;
-    this.finished = finished;
-    this.intake = intake;
-    addRequirements(shooter); // Use addRequirements() here to declare subsystem dependencies.
+  public Commands(Subsystems subsystem) {
+    m_subsystem = subsystem;
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    intake.intakeFuel();
-    shooter.shootFuel();
-    SmartDashboard.putBoolean("Shooter Active: ", true);
-  }
+  public void execute() {}
+
+  // Called once the command ends or is interrupted.
+  @Override
+  public void end(boolean interrupted) {}
+
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return finished.getAsBoolean();
-  }
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    shooter.stopShooter();
-    intake.stopIntake();
-    SmartDashboard.putBoolean("Shooter Active: ", false);
+    return false;
   }
 }
