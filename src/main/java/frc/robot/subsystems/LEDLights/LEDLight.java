@@ -1,24 +1,38 @@
-package frc.robot.subsystem;
+package frc.robot.subsystems.LEDLights;
 
+import java.util.Optional;
 
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.LEDPattern;
+import edu.wpi.first.wpilibj.util.Color;
+import frc.robot.Constants;
 
-public class LEDLight{
+public class LEDLight extends SubsystemBase{
 
     private final AddressableLED ledLight = new AddressableLED(Constants.LEDLight.kLEDLightPort);
     private final AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(Constants.LEDLight.kLEDLightLength); 
     
     public enum LEDLightStates {
 
-        BLUE_ALLIANCE(LEDLightPatterns.SolidColors.blue),
-        RED_ALLIANCE(LEDLightPatterns.SolidColors.red),
+        BLUE_ALLIANCE(LEDPattern.solid(Color.kRed)),
+        RED_ALLIANCE(LEDPattern.solid(Color.kOrange)),
         
-        CLIMB(LEDLightPatterns.RaindbowPattern.rainbow),
+        CLIMB(LEDPattern.rainbow(255, 128)),
         
-        TURRET_TRACKING(LEDLightpatterns.SolidColors.green),
+        TURRET_TRACKING(LEDPattern.solid(Color.kGreen)),
 
-        STOP(LEDLightPatterns.SolidColors.black);
+        STOP(LEDPattern.solid(Color.kBlack));
 
-        private final String color;
+
+        LEDLightStates(LEDPattern solid) {
+                    //TODO Auto-generated constructor stub
+                }
+        
+                private final String color;
 
         // LEDLightStates(String color) {this.color = color; }
 
@@ -27,18 +41,23 @@ public class LEDLight{
         // LEDLightStates(int ledAddress){
         //     this.ledType = ledAddress;
         }
-    }
-
-    private final LEDState ledState;
     
 
-    public LEDLight(){
+    private LEDLightStates ledState;
+    
+        
+        
+    
+        public LEDLight(){
+    
+            this.ledState = LEDLightStates.STOP;
+    
+            ledLight.setLength(Constants.LEDLight.kLEDLightLength);
+            ledLight.start();
 
-        this.ledState = LEDLightStates
-
-        ledLight.setLength(Constants.LEDLight.kLEDLightLength);
-        ledLight.start();
-    }
+        }
+    
+    
 
     // public void setState(LEDState ledState){
     //     this.ledState = LEDLightStates.STOP;
@@ -48,9 +67,9 @@ public class LEDLight{
         if (stop) ledState = LEDLightStates.STOP;
 
         switch(desiredState){
-            case(desiredState.):
-                String alliance = DriverStation.getAlliance();
-                ledState = alliance ? LEDLightStates.BLUE_ALLIANCE : LEDLightStates.RED_ALLIANCE;
+            case(desiredState.get):
+                Optional<Alliance> alliance = DriverStation.getAlliance();
+                ledState = (alliance.get() == Alliance.Blue) ? LEDLightStates.BLUE_ALLIANCE : LEDLightStates.RED_ALLIANCE;
             case("climb"):
                 ledState = LEDLightStates.CLIMB;
             case("turret"):

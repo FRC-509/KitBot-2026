@@ -4,9 +4,11 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Rotation2d;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.VelocityDutyCycle;
@@ -22,7 +24,8 @@ import frc.robot.Constants.SensorIDs;
 
 
 
-public class DifferentialDrive extends SubsystemBase {
+
+public class DifferentialDrive<PigeonWrapper> extends SubsystemBase {
   public final TalonFX frontLeft = new TalonFX(MotorIDs.kMotorFrontLeft);
   public final TalonFX frontRight = new TalonFX(MotorIDs.kMotorFrontRight);
   public final TalonFX backLeft = new TalonFX(MotorIDs.kMotorBackLeft);
@@ -101,7 +104,7 @@ public void end(){
 }
 
 public Rotation2d getYaw(){
-  if (RobotBase.isSimulation){
+  if (RobotBase.isSimulation()){
     return Rotation2d.fromRadians(simHeading);
   }
   return pigeon.getRotation2d();
