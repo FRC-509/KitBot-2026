@@ -34,11 +34,15 @@ public class DifferentialDrive extends SubsystemBase {
     backLeft.set(0);
     backRight.set(0);
   }
+  
   public void leftSpeed(double speed) {
+    speed = Math.clamp(speed, -1.0, 1.0);
     frontLeft.set(speed);
     backLeft.set(speed);
   }
+
   public void rightSpeed(double speed) {
+    speed = Math.clamp(speed, -1, 1.0);
     frontRight.set(speed);
     backRight.set(speed);
   }
