@@ -14,12 +14,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class DriveCommand extends Command {
 
-  DifferentialDrive subsystem;
+  DifferentialDrive driver;
   DoubleSupplier stickX;
   DoubleSupplier stickY;
 
   public DriveCommand(DifferentialDrive subsystem, DoubleSupplier stickX, DoubleSupplier stickY) {
-    this.subsystem = subsystem;
+    this.driver = subsystem;
     this.stickX = stickX;
     this.stickY = stickY;
   }
@@ -33,13 +33,7 @@ public class DriveCommand extends Command {
     double leftSpeed = y + x;
     double rightSpeed = y - x;
 
-    subsystem.leftSpeed(leftSpeed);
-    subsystem.rightSpeed(rightSpeed);
-  }
-
-  
-  @Override
-  public boolean isFinished() {
-    return true;
+    driver.leftSpeed(leftSpeed);
+    driver.rightSpeed(rightSpeed);
   }
 }

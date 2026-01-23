@@ -27,23 +27,26 @@ public class DifferentialDrive extends SubsystemBase {
   private final TalonFX frontRight = new TalonFX(MotorIDs.kMotorFrontRight);
   private final TalonFX backLeft = new TalonFX(MotorIDs.kMotorBackLeft);
   private final TalonFX backRight = new TalonFX(MotorIDs.kMotorBackRight);
+
+  private final VelocityDutyCycle rightVelocityClosedLoop = new VelocityDutyCycle(0);
+  private final VelocityDutyCycle leftVelocityClosedLoop = new VelocityDutyCycle(0);
   
   public DifferentialDrive() {
-    frontLeft.set(0);
-    frontRight.set(0);
-    backLeft.set(0);
-    backRight.set(0);
+    frontLeft.setControl(leftVelocityClosedLoop);
+    frontRight.setControl(rightVelocityClosedLoop);
+    backLeft.setControl(leftVelocityClosedLoop);
+    backRight.setControl(rightVelocityClosedLoop);
   }
   
   public void leftSpeed(double speed) {
-    speed = Math.clamp(speed, -1.0, 1.0);
-    frontLeft.set(speed);
-    backLeft.set(speed);
+    speed = Math.clamp(speed, -1, 1);
+    frontLeft.setControl(leftVelocityClosedLoop.withVelocity(DriveConstants.kMaxDriveVelocity * speed));
+    backLeft.setControl(leftVelocityClosedLoop.withVelocity(DriveConstants.kMaxDriveVelocity * speed));
   }
 
   public void rightSpeed(double speed) {
-    speed = Math.clamp(speed, -1, 1.0);
-    frontRight.set(speed);
-    backRight.set(speed);
+    speed = Math.clamp(speed, -1, 1);
+    frontRight.setControl(rightVelocityClosedLoop.withVelocity(DriveConstants.kMaxDriveVelocity * speed));
+    backRight.setControl(rightVelocityClosedLoop.withVelocity(DriveConstants.kMaxDriveVelocity * speed));
   }
 } 
