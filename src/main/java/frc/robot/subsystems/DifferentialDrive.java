@@ -91,12 +91,7 @@ public final VelocityDutyCycle closedloop = new VelocityDutyCycle(0).withEnableF
   * @param right
   */
   //drive controls the direction the tank bot moves
- public void drive(double forward, double right){
-  double leftSpeed = forward + right;
-  double rightSpeed = forward - right;
-  leftDrive(leftSpeed);
-  rightDrive(rightSpeed);
-}
+
 public void end(){
   rightDrive(0);
   leftDrive(0);
@@ -110,12 +105,12 @@ public Rotation2d getYaw(){
 }
 
 private void leftSide(double speed){
-      frontLeftMotor.set(speed);
-      backLeftMotor.set(speed);
+      frontLeft.set(speed);
+      backLeft.set(speed);
     }
     private void rightSide(double speed){
-      frontRightMotor.set(speed);
-      backRightMotor.set(speed);
+      frontRight.set(speed);
+      backRight.set(speed);
     }
     public void drive(double forward, double right){
       double rightSpeed = forward + right;
