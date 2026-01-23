@@ -38,8 +38,8 @@ public class RobotContainer {
     new CommandXboxController(OperatorConstants.kDriverControllerPort);
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer(DifferentialDrive diffDrive) {
-    this.diffDrive = diffDrive;
+  public RobotContainer() {
+    this.diffDrive = new DifferentialDrive();
       
     // Configure the trigger bindings
     configureBindings();

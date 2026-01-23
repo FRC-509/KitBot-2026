@@ -27,6 +27,11 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+public static class LEDLight {
+  public static final int kLEDLightPort = 0;
+  public static final int kLEDLightLength = 0;
+}
+
   public static class MotorIDs {
     public static final int kMotorFrontLeft = 1; //placeholder for ID
     public static final int kMotorFrontRight = 3; //placeholder for ID
