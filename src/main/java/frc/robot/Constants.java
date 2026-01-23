@@ -47,8 +47,8 @@ public static class LEDLight {
     public static final int kpigeon = 0;
   }
   public static class DriveConstants {
-    public static final double kMaxDriveVelocity = 1;
-    public static final double kMinDriveVelocity = -1;
+    public static final double kMaxDriveVelocity = 1; //placeholder
+    public static final double kMinDriveVelocity = -1; //placeholder
     public static final double kMaxDriveVoltage = 6.0;
     public static final double kMinDriveVoltage = -6.0;
     public static final double kNoDriveVoltage = 0.0;
