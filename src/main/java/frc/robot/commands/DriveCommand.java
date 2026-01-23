@@ -14,9 +14,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class DriveCommand extends Command {
 
-  DifferentialDrive driver;
-  DoubleSupplier stickX;
-  DoubleSupplier stickY;
+  private final DifferentialDrive driver;
+  private final DoubleSupplier stickX;
+  private final DoubleSupplier stickY;
 
   public DriveCommand(DifferentialDrive subsystem, DoubleSupplier stickX, DoubleSupplier stickY) {
     this.driver = subsystem;
