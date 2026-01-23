@@ -36,12 +36,13 @@ public class DifferentialDrive<PigeonWrapper> extends SubsystemBase {
   
 public final VelocityDutyCycle closedloop = new VelocityDutyCycle(0).withEnableFOC(false);
 
+private final PigeonWrapper pigeon;
 
   public DifferentialDrive(PigeonWrapper pigeon) {
 
     this.pigeon = pigeon;
 
-    pigeon.getYaw();
+    //pigeon.getYaw();
 
     TalonFXConfiguration driveConfig = new TalonFXConfiguration();
 

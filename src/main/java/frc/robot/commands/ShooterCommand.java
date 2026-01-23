@@ -29,8 +29,8 @@ public class ShooterCommand extends Command {
 
   @Override
   public void execute() {
-    // maybe -0.75
-    shooterN.shoot();
+    //implement shoot later
+    //shooterN.shoot();
   }
 
   // Called once the command ends or is interrupted.
