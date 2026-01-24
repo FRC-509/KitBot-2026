@@ -42,7 +42,7 @@ private final PigeonWrapper pigeon;
 
     this.pigeon = pigeon;
 
-    pigeon.getYaw();
+    //pigeon.getYaw();
 
     TalonFXConfiguration driveConfig = new TalonFXConfiguration();
 
@@ -92,12 +92,7 @@ private final PigeonWrapper pigeon;
   * @param right
   */
   //drive controls the direction the tank bot moves
- public void drive(double forward, double right){
-  double leftSpeed = forward + right;
-  double rightSpeed = forward - right;
-  leftDrive(leftSpeed);
-  rightDrive(rightSpeed);
-}
+
 public void end(){
   rightDrive(0);
   leftDrive(0);
@@ -110,18 +105,18 @@ public Rotation2d getYaw(){
   return pigeon.getRotation2d();
 }
 
-public double getHeading(){
-  return pigeon.getYaw().getAsDouble();
-}
-
-public void resetPigeon(){
-  pigeon.setYaw(0);
-}
-/*
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-    
-  }
-*/
+private void leftSide(double speed){
+      frontLeft.set(speed);
+      backLeft.set(speed);
+    }
+    private void rightSide(double speed){
+      frontRight.set(speed);
+      backRight.set(speed);
+    }
+    public void drive(double forward, double right){
+      double rightSpeed = forward + right;
+      double leftSpeed = forward - right;
+      rightSide(Math.clamp(rightSpeed, -1.00,  1.00));
+      leftSide(Math.clamp(leftSpeed,  -1.00,  1.00));
+    }
 }

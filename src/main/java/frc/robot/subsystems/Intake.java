@@ -20,30 +20,14 @@ import frc.robot.Constants.OperatorConstants;
 
 
 public class Intake extends SubsystemBase {
-  private final TalonFX rotationalMotor = new TalonFX(MotorIDs.kMotorIntake);
-  private final VoltageOut openLoop = new VoltageOut(0).withEnableFOC(false);
+  public final TalonFX intakeMotor = new TalonFX(0);
+
 
   public Intake() {
-    TalonFXConfiguration intakeConfig = new TalonFXConfiguration();
-
-    // PID value assignment
-    intakeConfig.Slot0.kP = Constants.PIDConstants.Intake.kIntakeP;
-    intakeConfig.Slot0.kI = Constants.PIDConstants.Intake.kIntakeI;
-    intakeConfig.Slot0.kD = Constants.PIDConstants.Intake.kIntakeD;
-    intakeConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    
-    rotationalMotor.getConfigurator().apply(intakeConfig);
+    intakeMotor.set(0);
   }
-
-  // outakeFuel controls the velocity of the fuel when shot
-  public void outtakeFuel(){
-      rotationalMotor.setControl(openLoop.withOutput(MechanismVelocityConstants.koutakeFuelVelocity));
-      SmartDashboard.putBoolean(getName(), true);
-  }
-  // intakeFuel controls the velocity of the fuel when sucked up
-  public void intakeFuel(){
-    rotationalMotor.setControl(openLoop.withOutput(MechanismVelocityConstants.kintakeFuelVelocity));
-    SmartDashboard.putBoolean(getName(), true);
+  private void intakeSpeed(){
+    intakeMotor.set(0.75);
   }
 
   /**
@@ -55,9 +39,6 @@ public class Intake extends SubsystemBase {
   //   // Query some boolean state, such as a digital sensor.
   //   return false;
   // }
-  public void stopIntake() {
-    rotationalMotor.setControl(openLoop.withOutput(0));
-  }
   /* 
   @Override
   public void periodic() {

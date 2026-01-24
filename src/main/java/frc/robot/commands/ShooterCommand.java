@@ -4,54 +4,41 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Intake;
-
-import java.util.function.BooleanSupplier;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Subsystems;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Shooter;
 
 /** An example command that uses an example subsystem. */
 public class ShooterCommand extends Command {
-  @SuppressWarnings("PMD.UnusedPrivateField")
-  private final Shooter shooter;
-  private final Intake intake;
-  private final BooleanSupplier finished;
+  private final Shooter shooterN;
+
   /**
    * Creates a new ExampleCommand.
    *
-   * @param Shooter The subsystem used by this command.
+   * @param subsystem The subsystem used by this command.
    */
-  public ShooterCommand(Shooter shooter, BooleanSupplier finished, Intake intake) {
-    this.shooter = shooter;
-    this.finished = finished;
-    this.intake = intake;
-    addRequirements(shooter); // Use addRequirements() here to declare subsystem dependencies.
+  public ShooterCommand(Shooter shooter) {
+    shooterN = shooter;
+
+    addRequirements(shooter);
   }
 
-  // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.intakeFuel();
-    shooter.shootFuel();
-    SmartDashboard.putBoolean("Shooter Active: ", true);
+    //implement shoot later
+    //shooterN.shoot();
   }
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return finished.getAsBoolean();
-  }
+
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    shooter.stopShooter();
-    intake.stopIntake();
-    SmartDashboard.putBoolean("Shooter Active: ", false);
+  public void end(boolean interrupted) {}
+
+  @Override
+  public boolean isFinished() {
+    return true;
   }
 }
