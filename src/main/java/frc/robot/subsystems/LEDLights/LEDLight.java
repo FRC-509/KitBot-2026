@@ -27,20 +27,15 @@ public class LEDLight extends SubsystemBase{
 
         STOP(LEDPattern.solid(Color.kBlack));
 
+        private final LEDPattern ledPattern;
 
-        LEDLightStates(LEDPattern solid) {
-                    //TODO Auto-generated constructor stub
-                }
-        
-                private final String color;
-
-        // LEDLightStates(String color) {this.color = color; }
-
-        // private final int ledAddress;
-
-        // LEDLightStates(int ledAddress){
-        //     this.ledType = ledAddress;
+        LEDLightStates(LEDPattern ledPattern){
+            this.ledPattern = ledPattern;
         }
+        public void applyTo(AddressableLEDBuffer ledBuffer){
+        ledPattern.applyTo(ledBuffer);
+    }
+    }
     
 
     private LEDLightStates ledState;
@@ -58,27 +53,40 @@ public class LEDLight extends SubsystemBase{
         }
     
     
-
-    // public void setState(LEDState ledState){
-    //     this.ledState = LEDLightStates.STOP;
-    // }
-
-    public void displayLED(LEDLightStates desiredState, boolean stop){
-        if (stop) ledState = LEDLightStates.STOP;
-
+    
+    public void displayLED(LEDLightStates desiredState){
+        
         switch(desiredState){
-            case(desiredState.get):
+            case BLUE_ALLIANCE:
+            case RED_ALLIANCE:
                 Optional<Alliance> alliance = DriverStation.getAlliance();
                 ledState = (alliance.get() == Alliance.Blue) ? LEDLightStates.BLUE_ALLIANCE : LEDLightStates.RED_ALLIANCE;
-            case("climb"):
+                break;
+
+            case CLIMB:
                 ledState = LEDLightStates.CLIMB;
-            case("turret"):
+                break;
+            case TURRET_TRACKING:
                 ledState = LEDLightStates.TURRET_TRACKING;
-                
-            ledState.applyTo(ledBuffer);
-            ledLight.setData(ledBuffer);
+                break;    
+            case STOP:
+                ledState = LEDLightStates.STOP;
+                break;
+            
+
         }
+    
+        setState(ledState);
     }
+
+    public void setState(LEDLightStates state){
+        ledState = state;
+
+        ledState.applyTo(ledBuffer);
+        ledLight.setData(ledBuffer);
+    }
+
+    //
 
     // public void stop(){
     //     ledState = LEDLightStates.STOP;
@@ -100,15 +108,15 @@ public class LEDLight extends SubsystemBase{
     //     ledLight.setData(ledBuffer);
     // }
 
-    @Override
-    public void initialize(){}
+    // @Override
+    // public void initialize(){}
 
-    @Override
-    public void execute(){}
+    // @Override
+    // public void execute(){}
 
-    @Override 
-    public void end(boolean interupted){}
+    // @Override 
+    // public void end(boolean interupted){}
 
-    @Override
-    public void isFinished(){}
+    // @Override
+    // public void isFinished(){}
 }
