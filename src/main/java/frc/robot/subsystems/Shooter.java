@@ -17,29 +17,16 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 
 
 public class Shooter extends SubsystemBase {
-  private final TalonFX shooterMotor = new TalonFX(MotorIDs.kMotorShooter);
-  private final VoltageOut openLoop = new VoltageOut(0).withEnableFOC(false);
+  
   /** Creates a new ExampleSubsystem. */
   public Shooter() {
-    TalonFXConfiguration shooterConfig = new TalonFXConfiguration();
-
-    // PID value assignment
-    shooterConfig.Slot0.kP = Constants.PIDConstants.Shooter.kShooterP;
-    shooterConfig.Slot0.kI = Constants.PIDConstants.Shooter.kShooterI;
-    shooterConfig.Slot0.kD = Constants.PIDConstants.Shooter.kShooterD;
-    shooterConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-
-    shooterMotor.getConfigurator().apply(shooterConfig);
+    shooterMotor.set(0);
   }
 
-  // shoots fuel that the robot sucks up
-  public void shootFuel(){
-    shooterMotor.setControl(openLoop.withOutput(MechanismVelocityConstants.kshooterFuelVelocity));
-  }
-
-  public void stopShooter(){
-    shooterMotor.setControl(openLoop.withOutput(0));
-  }
+  public final TalonFX shooterMotor = new TalonFX(0);
+    private void shooterSpeed(){
+      shooterMotor.set(-.75);
+    }
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
    *

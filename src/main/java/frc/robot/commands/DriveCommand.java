@@ -8,52 +8,47 @@ import frc.robot.subsystems.DifferentialDrive;
 
 import java.util.function.DoubleSupplier;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
 public class DriveCommand extends Command {
   @SuppressWarnings("PMD.UnusedPrivateField")
-  private final DifferentialDrive diffDrive;
-  private final DoubleSupplier dumpSumpForward;
-  private final DoubleSupplier dumpSumpRight;
-
-
+  //private final Subsystems m_subsystem;
+  private final DifferentialDrive tankDrive;
+  private final DoubleSupplier rightSupplier;
+  private final DoubleSupplier forwardSupplier;
   /**
    * Creates a new ExampleCommand.
    *
-   * @param DifferentialDrive The subsystem used by this command.
+   * @param subsystem The subsystem used by this command.
    */
-  public DriveCommand(DifferentialDrive diffDrive, DoubleSupplier dumpSumpForward, DoubleSupplier dumpSumpRight) {
-    this.diffDrive = diffDrive;
-    this.dumpSumpForward = dumpSumpForward;
-    this.dumpSumpRight = dumpSumpRight;
-
+  public DriveCommand (DifferentialDrive drive, DoubleSupplier right, DoubleSupplier forward) {
+    tankDrive = drive;
+    rightSupplier = right;
+    forwardSupplier = forward;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(diffDrive);
+    addRequirements(drive);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() { 
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    diffDrive.drive(dumpSumpForward.getAsDouble(), dumpSumpRight.getAsDouble());
-    SmartDashboard.putBoolean("DriveTrain Active: ", true);
+    tankDrive.drive(forwardSupplier.getAsDouble(), rightSupplier.getAsDouble());
+
   }
+
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-  diffDrive.drive(0,0);
-    SmartDashboard.putBoolean("DriveTrain Active: ", false);
-}
+  public void end(boolean interrupted) {}
+
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    
-    
     return true;
   }
 }
